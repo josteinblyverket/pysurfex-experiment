@@ -196,21 +196,18 @@ class Gmted(AbstractTask):
         # GMTED2010 Longitudes
         gmted2010_input_lons = []
         i = 0
-        for lon in range(-180, 150, longitude_bin_size):
-            if west < lon:
-                rel_lon = lon - longitude_bin_size
-                gmtedlon = (
-                    "{:03d}E".format(rel_lon)
-                    if rel_lon >= 0
-                    else "{:03d}W".format(-1 * lon)
-                )
+
+        for lon in range(180, -150, -30):
+            if  west > lon :
+                gmtedlon = f"{-1*lon:03d}W" if lon < 0 else f"{(1*lon):03d}E"
+                print(gmtedlon)
                 gmted2010_input_lons.append(gmtedlon)
                 i += 1
-            if east <= lon:
+            if east >= lon:
                 break
 
-        hdr_east = lon
-        hdr_west = lon - i * longitude_bin_size
+        hdr_east = 60 #lon
+        hdr_west = -30 #lon - i * longitude_bin_size
 
         return (
             hdr_east,
@@ -230,8 +227,8 @@ class Gmted(AbstractTask):
         Returns:
             tuple: GMTED input files
         """
-        east = domain_properties["maxlon"]
-        west = domain_properties["minlon"]
+        east = domain_properties["minlon"]
+        west = domain_properties["maxlon"]
         south = domain_properties["minlat"]
         north = domain_properties["maxlat"]
 
@@ -244,13 +241,31 @@ class Gmted(AbstractTask):
             gmted2010_input_lons,
         ) = self.gmted_header_coordinates(east, west, south, north)
 
+        print(hdr_east)
+        print(hdr_west)
+        print(hdr_south)
+        print(hdr_north)
+        print(gmted2010_input_lats)
+        print(gmted2010_input_lons)
+        
         tif_files = []
 
+        print("path")
+        print(self.gmted2010_path)
+        
         for lat in gmted2010_input_lats:
+            print(lat)
             for lon in gmted2010_input_lons:
+                print(lon)
+                print("here?")
                 tif_file = f"{self.gmted2010_path}/{lat}{lon}_20101117_gmted_mea075.tif"
                 tif_files.append(tif_file)
+                
+                print(tif_files)
 
+        print("after loop")
+        print(tif_files)
+                
         for tif_file in tif_files:
             if not os.path.isfile(tif_file):
                 logger.error("GMTED file {} not found", tif_file)
@@ -387,7 +402,7 @@ class Soil(AbstractTask):
             ValueError: If domain is outside soilgrid data area
         """
         # Area available from soilgrid data
-        glo_north = 84.0
+        glo_north = 90.0
         glo_south = -56.0
         glo_east = 180.0
         glo_west = -180.0

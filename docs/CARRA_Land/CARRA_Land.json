@@ -1,0 +1,526 @@
+{
+  "general": {
+    "loglevel": "INFO",
+    "cnmexp": "",
+    "tstep": 60,
+    "realization": -1,
+    "realizations": [],
+    "os_macros": [
+      "HOME"
+    ],
+    "hh_list": "00-21:3",
+    "ll_list": "3,3,3,3,3,3,3,3",
+    "times": {
+      "cycle_length": "PT3H",
+      "start": "2015-09-01T00:00:00Z",
+      "end": "2015-09-07T00:00:00Z",
+      "basetime": "2015-09-06T09:00:00Z",
+      "basetime_pp": "2015-09-06T09:00:00Z",
+      "validtime": "2015-09-06T09:00:00Z"
+    },
+    "case": "CARRA_Land",
+    "keep_workdirs": false
+  },
+  "compile": {
+    "cmake": true,
+    "build": false,
+    "offline_source": "/ec/res4/hpcperm/sbjb/github/carra2_jb"
+  },
+  "domain": {
+    "name": "AROME_ARCTIC",
+    "nimax": 750,
+    "njmax": 960,
+    "xloncen": 23.0,
+    "xlatcen": 75.4,
+    "xdx": 2500.0,
+    "xdy": 2500.0,
+    "ilone": 0,
+    "ilate": 0,
+    "xlon0": -25.0,
+    "xlat0": 77.5
+  },
+  "initial_conditions": {
+    "anasurf": "gridpp",
+    "prep_input_file": "",
+    "prep_input_filetype": "json",
+    "prep_pgdfile": "",
+    "prep_pgdfiletype": "",
+    "fg4oi": {
+      "inputfile": "@sfx_exp_data@/archive/@YYYY@/@MM@/@DD@/@HH@/SURFOUT.nc",
+      "fileformat": "surfex",
+      "converter": "none",
+      "input_geo_file": "",
+      "air_temperature_2m": {},
+      "relative_humidity_2m": {},
+      "surface_snow_thickness": {
+        "converter": "sweclim"
+      },
+      "altitude": {
+        "converter": "phi2m"
+      }
+    }
+  },
+  "forecast": {
+    "physics": "arome",
+    "ensmsel": [],
+    "forc_zs": true
+  },
+  "forcing": {
+    "pattern": "/ec/res4/scratch/sbjb/sfx_data/CARRA_Land/gribfiles/@YYYY@/@MM@/@DD@/@HH@/fc@YYYY@@MM@@DD@@HH@+@LLL@grib_fp",
+    "input_format": "grib1",
+    "input_geo_file": "",
+    "zref": "screen",
+    "zval": "constant",
+    "uref": "screen",
+    "uval": "constant",
+    "qa_converter": "none",
+    "zsoro_converter": "phi2m",
+    "rain_converter": "none",
+    "snow_converter": "none",
+    "dir_sw_converter": "none",
+    "sca_sw": "constant",
+    "lw_converter": "none",
+    "co2": "constant",
+    "wind_converter": "windspeed",
+    "winddir_converter": "winddir",
+    "ps_converter": "none",
+    "debug": true,
+    "timestep": 3600,
+    "analysis": false,
+    "modify_forcing": false,
+    "interpolation": "bilinear"
+  },
+  "observations": {
+    "synop_obs_t2m": false,
+    "synop_obs_rh2m": false,
+    "synop_obs_sd": false,
+    "cryo_obs_sd": false,
+    "netatmo_obs_t2m": false,
+    "netatmo_obs_rh2m": false,
+    "netatmo_filepattern": "@sfx_exp_data@/archive/observations/@YYYY@/@MM@/@DD@/@HH@/@RRR@",
+    "cryo_filepattern": "@sfx_exp_data@/archive/observations/@YYYY@/@MM@/@DD@/@HH@/@RRR@/daily-avhrr-sce-nhl_ease-50_@YYYY@@MM@@DD@@HH@",
+    "cryo_laf_threshold": 0.1,
+    "cryo_step": 2,
+    "cryo_fg_threshold": 0.4,
+    "cryo_new_snow": 0.1,
+    "cryo_var_name": "classed_value_c",
+    "qc": {
+      "tests": [
+        "domain",
+        "nometa",
+        "plausibility",
+        "sct"
+      ],
+      "sd": {
+        "tests": [
+          "domain",
+          "blacklist",
+          "nometa",
+          "plausibility",
+          "firstguess"
+        ]
+      }
+    },
+    "oi": {
+      "t2m": {
+        "gradient": -0.0065,
+        "hlength": 30000,
+        "vlength": 400
+      },
+      "sd": {
+        "hlength": 60000,
+        "vlength": 300
+      }
+    }
+  },
+  "Observations": {
+    "oi": {
+      "rh2m": {
+        "hlength": 30000,
+        "vlength": 400
+      }
+    }
+  },
+  "SURFEX": {
+    "IO": {
+      "CSURF_FILETYPE": "NC",
+      "CTIMESERIES_FILETYPE": "NC",
+      "CFORCING_FILETYPE": "NETCDF",
+      "XTSTEP": 600,
+      "XTSTEP_OUTPUT": 10800.0,
+      "LSPLIT_PATCH": true,
+      "LSELECT": true,
+      "CPGDFILE": "PGD",
+      "CPREPFILE": "PREP",
+      "CSURFFILE": "SURFOUT",
+      "LFAGMAP": true
+    },
+    "COVER": {
+      "YCOVER": "ecosg_final_map",
+      "SG": true,
+      "H_TREE": "new_ht_c",
+      "ALBNIR_SOIL": "ALB_SAT_NI_@MM@@CDD@_c",
+      "ALBNIR_VEG": "ALB_SAT_NI_@MM@@CDD@_c",
+      "ALBVIS_SOIL": "ALB_SAT_VI_@MM@@CDD@_c",
+      "ALBVIS_VEG": "ALB_SAT_VI_@MM@@CDD@_c",
+      "LAI": "LAI_SAT_@MM@@CDD@_c"
+    },
+    "ZS": {
+      "YZS": "gmted2010"
+    },
+    "PARAMETERS": {
+      "XRIMAX": 0.0
+    },
+    "TILES": {
+      "SEA": "NONE",
+      "INLAND_WATER": "NONE",
+      "NATURE": "ISBA",
+      "TOWN": "NONE"
+    },
+    "SEA": {
+      "ICE": "NONE",
+      "PERTFLUX": false,
+      "LVOLATILE_SIC": false
+    },
+    "INLAND_WATER": {},
+    "FLAKE": {
+      "LCLIM": true,
+      "LDB_VERSION": "3.0"
+    },
+    "ISBA": {
+      "SCHEME": "DIF",
+      "NPATCH": 2,
+      "MEB": true,
+      "CANOPY": false,
+      "SNOW": "3-L",
+      "YSOC_TOP": "soc_top",
+      "YSOC_SUB": "soc_sub",
+      "YSAND": "SAND_SOILGRID",
+      "YCLAY": "CLAY_SOILGRID",
+      "PERTSURF": false,
+      "XCGMAX": 2e-05,
+      "XCSMAX": 0.0002
+    },
+    "SSO": {
+      "SCHEME": "NONE"
+    },
+    "TREEDRAG": {
+      "TREEDATA_FILE": "",
+      "XSCALE_H_TREE": 1.0,
+      "XALLEN_TERM": 2.5,
+      "XGRASS_H_DNM": 3.0,
+      "FAKETREES": false
+    },
+    "TOWN": {
+      "LTOWN_TO_ROCK": false
+    },
+    "TEB": {},
+    "ASSIM": {
+      "CFILE_FORMAT_LSM": "ASCII",
+      "SCHEMES": {
+        "SEA": "NONE",
+        "INLAND_WATER": "NONE",
+        "ISBA": "NONE",
+        "TEB": "NONE"
+      },
+      "OBS": {
+        "LOBSHEADER": false,
+        "CFILE_FORMAT_OBS": "ASCII",
+        "LOBSNAT": false,
+        "COBS_M": [
+          "T2M",
+          "HU2M",
+          "WG2 ",
+          "LAI",
+          "SWE"
+        ],
+        "NNCO": [
+          1,
+          1,
+          0,
+          0,
+          1
+        ],
+        "XERROBS_M": [
+          1.0,
+          0.1,
+          0.1,
+          0.1,
+          20.0
+        ],
+        "LSWE": false
+      },
+      "SEA": {
+        "CFILE_FORMAT_SST": "ASCII",
+        "LREAD_SST_FROM_FILE": false,
+        "LEXTRAP_SEA": false,
+        "LECSST": false
+      },
+      "INLAND_WATER": {
+        "LWATERTG2": false,
+        "LEXTRAP_WATER": false
+      },
+      "ISBA": {
+        "UPDATE_SNOW_CYCLES": [],
+        "LSWEPSINI": false,
+        "XSWEPSINI": 1000.0,
+        "LSWEPSMIN": false,
+        "XSWEPSMIN": 500.0,
+        "LPATCH1": false,
+        "OI": {
+          "CFILE_FORMAT_CLIM": "ASCII",
+          "CFILE_FORMAT_FG": "ASCII",
+          "COEFFS": "POLYNOMES_ISBA",
+          "XSIGT2MO": 1.0,
+          "XSIGH2MO": 0.1
+        },
+        "EKF": {
+          "NNCV": [
+            0,
+            1,
+            0,
+            1
+          ],
+          "XSIGMA_M": [
+            2.0,
+            2.0,
+            0.1,
+            0.15
+          ],
+          "CVAR_M": [
+            "TG1",
+            "TG2",
+            "WG1",
+            "WG2"
+          ],
+          "XTPRT_M": [
+            0.0001,
+            0.0001,
+            1e-05,
+            1e-05
+          ],
+          "XSCALE_Q": 0.125,
+          "EVOLVE_B": false,
+          "LLINCHECK": true,
+          "XALPHA": 0.2
+        },
+        "ENKF": {
+          "NNCV": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "CVAR_M": [
+            "TG1",
+            "TG2",
+            "TG3",
+            "WG2",
+            "WG3",
+            "WG4"
+          ],
+          "NENS_M": 16,
+          "LPASSIVE_MODE": false
+        }
+      }
+    }
+  },
+  "eps": {
+    "member_settings": {
+      "general": {
+        "hh_list": {
+          "0": "0-21:3",
+          "1": "0-21:3",
+          "2": "0-21:3"
+        },
+        "ll_list": {
+          "0": "3",
+          "1": "3",
+          "2": "3"
+        }
+      },
+      "SURFEX": {
+        "ASSIM": {
+          "SCHEMES": {
+            "ISBA": {
+              "0": "OI",
+              "1": "OI",
+              "2": "OI"
+            }
+          }
+        },
+        "SEA": {
+          "PERTFLUX": {
+            "0": "none"
+          }
+        },
+        "ISBA": {
+          "PERTSURF": {
+            "0": "none"
+          }
+        }
+      }
+    }
+  },
+  "task": {
+    "wrapper": "",
+    "var_name": "",
+    "args": {}
+  },
+  "system": {
+    "joboutdir": "/perm/sbjb/sfx_data/",
+    "wrk": "/scratch/sbjb/sfx_data/CARRA_Land/@YYYY@@MM@@DD@_@HH@/@RRR@/",
+    "bin_dir": "/perm/sbjb/sfx_data/CARRA_Land/lib/offline/exe/",
+    "climdir": "/scratch/sbjb/sfx_data/CARRA_Land/climate/",
+    "archive_dir": "/scratch/sbjb/sfx_data/CARRA_Land/archive/@YYYY@/@MM@/@DD@/@HH@/",
+    "extrarch_dir": "/scratch/sbjb/sfx_data/CARRA_Land/archive/extract/",
+    "forcing_dir": "/scratch/sbjb/sfx_data/CARRA_Land/forcing/@YYYY@@MM@@DD@@HH@/@RRR@/",
+    "obs_dir": "/scratch/sbjb/sfx_data/CARRA_Land/archive/observations/@YYYY@/@MM@/@DD@/@HH@/",
+    "namelist_defs": "/home/sbjb/surfex/CERISE-Land/experiment/setup/../../data/nam/surfex_namelists.yml",
+    "binary_input_files": "/home/sbjb/surfex/CERISE-Land/experiment/setup/../../data/input/binary_input_data.json",
+    "exp_dir": "/scratch/sbjb/sfx_data/CARRA_Land",
+    "sfx_exp_lib": "/perm/sbjb/sfx_data/CARRA_Land/lib",
+    "sfx_exp_data": "/scratch/sbjb/sfx_data/CARRA_Land",
+    "pysurfex": "/home/sbjb/surfex/CERISE-Land/.venv/src/pysurfex/pysurfex/../",
+    "pysurfex_experiment": "/home/sbjb/surfex/CERISE-Land/experiment/setup/../..",
+    "first_guess_yml": "/home/sbjb/surfex/CERISE-Land/.venv/src/pysurfex/pysurfex/..//pysurfex/cfg/first_guess.yml",
+    "config_yml": "/home/sbjb/surfex/CERISE-Land/.venv/src/pysurfex/pysurfex/..//pysurfex/cfg/config.yml",
+    "surfex_config": "aa.Intel.offline",
+    "rsync": "rsync  -rltoDvhL"
+  },
+  "platform": {
+    "sand_dir": "/ec/res4/hpcperm/hlam/data/climate/PGD/",
+    "clay_dir": "/ec/res4/hpcperm/hlam/data/climate/PGD/",
+    "soilgrid_dir": "/scratch/sbu/sfx_data/test_default/climate/",
+    "soc_top_dir": "/ec/res4/hpcperm/hlam/data/climate/PGD/",
+    "soc_sub_dir": "/ec/res4/hpcperm/hlam/data/climate/PGD/",
+    "ecoclimap_cover_dir": "/ec/res4/hpcperm/hlam/data/climate/PGD/",
+    "ecoclimap_bin_dir": "/scratch/sbu/sfx_data/test_default/lib/offline/MY_RUN/ECOCLIMAP",
+    "pgd_data_path": "/ec/res4/hpcperm/hlam/data/climate/PGD/",
+    "gmted2010_data_path": "/ec/res4/hpcperm/hlam/data/climate/GMTED2010/",
+    "soilgrid_data_path": "/ec/res4/hpcperm/hlam/data/climate/SOILGRID/",
+    "ecosg_data_path": "/ec/res4/hpcperm/hlam/data/climate/ECOCLIMAP-SG/",
+    "albnir_soil_dir": "/ec/res4/hpcperm/hlam/data/climate/ECOCLIMAP-SG/ALB_SAT/",
+    "albvis_soil_dir": "/ec/res4/hpcperm/hlam/data/climate/ECOCLIMAP-SG/ALB_SAT/",
+    "albnir_veg_dir": "/ec/res4/hpcperm/hlam/data/climate/ECOCLIMAP-SG/ALB_SAT",
+    "albvis_veg_dir": "/ec/res4/hpcperm/hlam/data/climate/ECOCLIMAP-SG/ALB_SAT/",
+    "tree_height_dir": "/ec/res4/hpcperm/hlam/data/climate/ECOCLIMAP-SG/HT/",
+    "lai_dir": "/ec/res4/hpcperm/hlam/data/climate/ECOCLIMAP-SG/LAI_SAT/",
+    "oro_dir": "/scratch/sbu/sfx_data/test_default/climate/",
+    "name": "ECMWF-atos"
+  },
+  "scheduler": {
+    "ecf_host": "ecflow-gen-sbjb-001",
+    "ecf_port": 3141,
+    "ecf_port_offset": 0
+  },
+  "submission": {
+    "submit_types": [
+      "background",
+      "serial",
+      "parallel"
+    ],
+    "default_submit_type": "serial",
+    "background": {
+      "SCHOST": "localhost",
+      "ENV": {
+        "MODULE_UDUNITS": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'udunits/2.2.28'); os.environ['LD_LIBRARY_PATH']=os.environ.get('UDUNITS_DIR') + '/lib/'",
+        "MODULE_PROJ": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'proj/7.2.1')"
+      },
+      "tasks": [
+        "Background",
+        "Dummy"
+      ]
+    },
+    "serial": {
+      "SCHOST": "hpc",
+      "ENV": {
+        "MODULE_UDUNITS": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'udunits/2.2.28'); os.environ['LD_LIBRARY_PATH']='/usr/local/apps/udunits/2.2.28/lib/'",
+        "MODULE_PROJ": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'proj/7.2.1')",
+        "MODULE_GDAL": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'gdal/3.2.1')"
+      },
+      "HOST": "0",
+      "BATCH": {
+        "WALLTIME": "#SBATCH --time=00:10:00"
+      }
+    },
+    "parallel": {
+      "SCHOST": "hpc",
+      "ENV": {
+        "MODULE_UDUNITS": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'udunits'); os.environ['LD_LIBRARY_PATH']=os.environ.get('UDUNITS_DIR') + '/lib/'",
+        "OPENMPI0": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'prgenv/intel')",
+        "OPENMPI1": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'intel/2021.4.0'); module('load','intel-mkl/19.0.5'); module('load', 'intel-mpi/2021.4.0')",
+        "MODULE_PROJ": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'proj/7.2.1')",
+        "OMP_NUM_THREADS": "import os; os.environ['OMP_NUM_THREADS']='1';"
+      },
+      "BATCH": {
+        "WALLTIME": "#SBATCH --time=02:00:00",
+        "QOS": "#SBATCH --qos=np",
+        "NNODES": "#SBATCH  --nodes=1",
+        "NTASKS": "#SBATCH  --ntasks=1",
+        "NTPC": "#SBATCH --ntasks-per-core=1"
+      },
+      "WRAPPER": "srun -n 1",
+      "tasks": [
+        "Forecast",
+        "PerturbedRun",
+        "Pgd",
+        "Prep",
+        "Soda"
+      ]
+    },
+    "task_exceptions": {
+      "MakeOfflineBinaries": {
+        "ENV": {
+          "OPENMPI0": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'prgenv/intel')",
+          "OPENMPI1": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'openmpi')",
+          "ECCODES": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'ecmwf-toolbox')",
+          "NETCDF": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'netcdf4')",
+          "WALLTIME": "#SBATCH --time=00:20:00"
+        }
+      },
+      "CMakeBuild": {
+        "ENV": {
+          "OPENMPI0": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'prgenv/intel')",
+          "OPENMPI1": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'openmpi')",
+          "ECCODES": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'ecmwf-toolbox')",
+          "NETCDF": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'netcdf4')",
+          "WALLTIME": "#SBATCH --time=01:00:00"
+        }
+      },
+      "Forecast": {
+        "BATCH": {
+          "WALLTIME": "#SBATCH --time=00:15:00"
+        },
+        "ENV": {
+          "MODULE": "print('My beautiful module')"
+        }
+      },
+      "QualityControl": {
+        "ENV": {
+          "ECCODES": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'ecmwf-toolbox')"
+        }
+      },
+      "Forcing": {
+        "ENV": {
+          "EPYGRAM": "import sys; sys.path.insert(0, '/perm/hlam/apps/epygram/1.4.13/epygram'); sys.path.insert(0, '/perm/hlam/apps/epygram/1.4.13/site'); sys.path.insert(0, '/perm/hlam/apps/epygram/1.4.13')",
+          "ECCODES": "exec(open('/usr/local/apps/lmod/8.6.8/init/env_modules_python.py').read()); module('load', 'ecmwf-toolbox')"
+        }
+      },
+      "ModifyForcing": {
+        "ENV": {
+          "epygram": "import sys; sys.path.insert(0, '/perm/hlam/apps/epygram/1.4.13/epygram'); sys.path.insert(0, '/perm/hlam/apps/epygram/1.4.13/site'); sys.path.insert(0, '/perm/hlam/apps/epygram/1.4.13')"
+        }
+      }
+    }
+  },
+  "troika": {
+    "command": "troika",
+    "config": "/home/sbjb/surfex/CERISE-Land/experiment/setup/../../data/config/troika_config.yml"
+  },
+  "metadata": {
+    "source_file_path": "/etc/ecmwf/nfs/dh1_home_b/sbjb/sfx_home/CARRA_Land/CARRA_Land.json"
+  }
+}
