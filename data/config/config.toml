@@ -1,5 +1,5 @@
 config_files = ["config_exp.toml", "config_exp_observations.toml", "config_exp_surfex.toml",
-                "config_exp_eps.toml"]
+                "config_exp_eps.toml", "config_exp_assim.toml"]
 
 ["config_exp.toml"]
 blocks = ["general", "compile", "domain", "initial_conditions", "forecast", "forcing"]
@@ -12,3 +12,6 @@ blocks = ["SURFEX"]
 
 ["config_exp_eps.toml"]
 blocks = ["eps"]
+
+["config_exp_assim.toml"]
+blocks = ["assim"]

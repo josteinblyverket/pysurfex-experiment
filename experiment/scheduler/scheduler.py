@@ -125,7 +125,9 @@ class EcflowServer(Server):
 
                 start_command = self.start_command
                 if self.start_command is None:
-                    start_command = f"ecflow_start.sh -p {str(self.ecf_port)}"
+                    # TODO depends on ecflow installation
+#                    start_command = f"ecflow_start.sh -p {str(self.ecf_port)}"
+                    start_command = f"ecflow_start -p {str(self.ecf_port)}"
 
                 logger.info(start_command)
                 # TODO

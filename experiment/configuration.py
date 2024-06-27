@@ -51,7 +51,7 @@ class Configuration:
 
             cycle_list = []
             cycle_list_str = []
-            for cycle in cycle_list:
+            for cycle in cycle_list_all:
                 cycle_str = str(cycle)
                 if cycle_str not in cycle_list_str:
                     cycle_list.append(cycle)
